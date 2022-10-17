@@ -1,15 +1,17 @@
 public class Desserts{
-    private String name;
-
-    public Desserts(String name) {
-        this.name = name;
+    private String desserts;
+    private int pieces;
+    
+      public Desserts(String desserts, int pieces) {
+        this.desserts = desserts;
+        this.pieces = pieces;
     }
 
-    public String getName() {
-        return name;
+    public String getDessertsName() {
+        return desserts;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public int getPieces(){
+        return pieces;
     }
 }

@@ -1,43 +1,60 @@
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 
 public class Main{
-    public static void main(String[] args){
-        Scanner scan = new Scanner(System.in);
-        ArrayList<Desserts> desserts = new ArrayList<Desserts>();
-        System.out.println("=====================================");
-        System.out.println("Annyeong!, wanna buy some desserts?");
-        System.out.println("=====================================");
-        System.out.print("How many desserts you want to buy?:");
-        int NumObj = scan.nextInt();
-        scan.nextLine();
-                try{
-                        if(NumObj > 0 ){
-                            
-                            for(int i = 0;i<NumObj; i++){
-                                System.out.print("Please enter the desserts you want to buy "+ "(" + i + ") :");
-                                String name = scan.nextLine();
-                                desserts.add(new Desserts(name));
-                            }
-                            System.out.println("");
-                            System.out.println("Here are the desserts!");
-                            System.out.println("================");
-                            for(int j = 0;j<NumObj; j++){
-                                System.out.println(desserts.get(j).getName());
-                                
-                            }
-                            System.out.println("================");
-                            System.out.println("");
-                            System.out.println("Kamsahamnida!, Please Come Again..");
-                        }else if(NumObj == 0){
-                            scan.close();
-                            throw new Exceptions("Zero is invalid");
-                        }else{
-                            scan.close();
-                            throw new Exceptions("Negative Variable is not allowed");
-                        }
-                }catch(Exception e){
-                    System.out.println(e.getMessage());
-                }
-    } 
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
+
+        List<Desserts> listOfDesserts = new ArrayList<Desserts>();
+
+        System.out.println("Welcome to sweetness overload where desserts are served!");
+        System.out.println("Note: Only input an integer.");
+
+        try{
+            System.out.print("Number of desserts you want: ");
+            Integer objects = input.nextInt();
+            
+            if(objects < 0){
+                input.close();
+                sc.close();
+                throw new DessertsException("Your input is negative. Please input positive index.");
+            }
+
+            for(int i = 0; i < objects; i++){
+                
+                System.out.println("");
+                System.out.print("desserts name: ");
+                String Desserts_sc = sc.nextLine();
+
+                System.out.print("Pieces: ");
+                int Pieces_sc = Integer.parseInt(sc.nextLine());
+    
+                listOfDesserts.add(new Desserts(Desserts_sc, Pieces_sc));
+            }
+
+            System.out.println("");
+            System.out.println("Here is/are your dessert/s!");
+            System.out.println("=====================================");
+            for(Desserts list : listOfDesserts){
+                System.out.println("Desserts name: " + list.getDessertsName() + " || " + "Pieces: " + list.getPieces());    
+            }
+            System.out.println("=====================================");
+            System.out.println("");
+
+            input.close();
+            sc.close();
+
+        }
+        catch(DessertsException e){
+            System.out.println(e.getMessage());
+        }
+        catch(InputMismatchException ex){
+            System.out.println("Your input is not a number.");
+        }
+
+    }
 }
